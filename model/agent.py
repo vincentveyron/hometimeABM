@@ -10,3 +10,9 @@ class HometimeAgent(Agent):
     def step(self):
         """This is called on every time step"""
         pass
+
+    def stage_one(self):
+        print(str(self.unique_id) + " stage one")
+
+    def stage_two(self):
+        print(str(self.unique_id) + " stage two")
