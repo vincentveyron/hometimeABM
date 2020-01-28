@@ -1,5 +1,7 @@
 from mesa import Model
 from mesa.space import ContinuousSpace
+from mesa.time import StagedActivation
+from model.agent import HometimeAgent
 
 
 class HometimeModel(Model):
@@ -16,3 +18,14 @@ class HometimeModel(Model):
         """
         self.num_agents = N
         self.grid = ContinuousSpace(width, height, False)
+        model_stages = ["stage_one", "stage_two"]
+        self.schedule = StagedActivation(self, model_stages, True)
+
+        for i in range(0, self.num_agents):
+            agent = HometimeAgent(i, self)
+            self.schedule.add(agent)
+
+        self.running = True
+
+    def step(self):
+        self.schedule.step()
