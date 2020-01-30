@@ -27,7 +27,7 @@ class HometimeModel(Model):
         self.good_weather = True
 
         for i in range(0, self.num_agents):
-            agent = HometimeAgent(i, self)
+            agent = HometimeAgent(i, self, 1.0)
             self.schedule.add(agent)
 
         self.running = True
