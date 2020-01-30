@@ -2,6 +2,8 @@ from mesa import Model
 from mesa.space import ContinuousSpace
 from mesa.time import StagedActivation
 from model.agent import HometimeAgent
+from model import config
+from random import random
 
 
 class HometimeModel(Model):
@@ -21,6 +23,9 @@ class HometimeModel(Model):
         model_stages = ["stage_one", "stage_two"]
         self.schedule = StagedActivation(self, model_stages, True)
 
+        # this is true when the weather is good, false otherwise
+        self.good_weather = True
+
         for i in range(0, self.num_agents):
             agent = HometimeAgent(i, self)
             self.schedule.add(agent)
@@ -28,4 +33,10 @@ class HometimeModel(Model):
         self.running = True
 
     def step(self):
+        # change the weather
+        if random() < config.percentage_bad_weather:
+            self.good_weather = False
+        else:
+            self.good_weather = True
+
         self.schedule.step()
