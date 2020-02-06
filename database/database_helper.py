@@ -27,5 +27,12 @@ def add_restaurant(db_connection, name, xpos, ypos):
     """
     cursor = db_connection.cursor()
     cursor.execute('INSERT INTO restaurants VALUES (?,?,?)',
-                   name, xpos, ypos)
+                   (name, xpos, ypos))
     db_connection.commit()
+
+
+def get_all_restaurants(db_connection):
+    cursor = db_connection.cursor()
+    cursor.execute('SELECT * FROM restaurants')
+    rows = cursor.fetchall()
+    return rows
