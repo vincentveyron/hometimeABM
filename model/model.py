@@ -4,12 +4,13 @@ from mesa.time import StagedActivation
 from model.agent import HometimeAgent
 from model import config
 from random import random
+from database.database_helper import get_all_restaurants
 
 
 class HometimeModel(Model):
     """This is a model that allows simulation of secondary school children to
     commute home from school and/or stop off at restaurants"""
-    def __init__(self, N=100, width=100, height=100):
+    def __init__(self, db_connection, N=100, width=100, height=100):
         """Makes the new model
 
         Arguments
@@ -22,6 +23,8 @@ class HometimeModel(Model):
         self.grid = ContinuousSpace(width, height, False)
         model_stages = ["stage_one", "stage_two"]
         self.schedule = StagedActivation(self, model_stages, True)
+
+        self.restaurants = get_all_restaurants(db_connection)
 
         # this is true when the weather is good, false otherwise
         self.good_weather = True
