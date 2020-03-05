@@ -28,16 +28,26 @@ class HometimeAgent(Agent):
 
     def stage_one(self):
         print(str(self.unique_id) + " stage one")
-        utility = self.calculate_utility()
-        print(str(self.unique_id) + "'s utility is " + str(utility))
+
+        # utility = self.calculate_utility()
+        # print(str(self.unique_id) + "'s utility is " + str(utility))
 
     def stage_two(self):
         print(str(self.unique_id) + " stage two")
 
-    def calculate_utility(self):
+    def calculate_utility(self, restaurant_name):
         utility = 0
         if self.model.good_weather:
             utility += 0 * self.weather_weight
         else:
             utility += -1 * self.weather_weight
+
+        utility += (self.likelihood_to_eat_out *
+                    self.likelihood_to_eat_out_weight)
+        utility += (self.restaurant_likability[restaurant_name] *
+                    self.restaurant_likability_weight)
+
+        utility += (self.previous_visits[restaurant_name] *
+                    self.previous_visits_weight)
+
         return utility
