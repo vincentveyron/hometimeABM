@@ -1,4 +1,5 @@
 from mesa import Agent
+from model.utilities import distance_between_points
 
 
 class HometimeAgent(Agent):
@@ -35,7 +36,8 @@ class HometimeAgent(Agent):
     def stage_two(self):
         print(str(self.unique_id) + " stage two")
 
-    def calculate_utility(self, restaurant_name):
+    def calculate_utility(self, restaurant_name, restaurant_x_pos, 
+                          restaurant_y_pos):
         utility = 0
         if self.model.good_weather:
             utility += 0 * self.weather_weight
@@ -49,5 +51,30 @@ class HometimeAgent(Agent):
 
         utility += (self.previous_visits[restaurant_name] *
                     self.previous_visits_weight)
+
+        dist_r_to_h = distance_between_points(
+            (self.home_x_pos, self.home_y_pos),
+            (restaurant_x_pos, restaurant_y_pos))
+        #this is the distance from school to restaurant
+        dist_s_to_r = distance_between_points(
+            (self.model.school_x_pos, self.model.school_y_pos),
+            (restaurant_x_pos, restaurant_y_pos)
+        )
+
+        #this is the distance from school to home
+        dist_s_to_h = distance_between_points(
+            (self.model.school_x_pos, self.model.school_y_pos),
+            (self.home_x_pos, self.home_y_pos)
+        )
+        #this is the distance from school to restaurant and then from 
+        #restaurant to home
+        dist_s_to_r_to_h = dist_s_to_r + dist_r_to_h
+
+        #this gives us the percentage of extra walking distance compared to if
+        #student was to go straight home
+        extra_distance = dist_s_to_r_to_h - dist_s_to_h
+        extra_distance_prop = extra_distance / dist_s_to_h
+
+        utility += self.distance_weight * extra_distance_prop
 
         return utility
