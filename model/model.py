@@ -26,7 +26,7 @@ class HometimeModel(Model):
 
         self.restaurants = get_all_restaurants(db_connection)
         self.school_x_pos = school_x_pos
-        self.school_x_pos = school_y_pos
+        self.school_y_pos = school_y_pos
 
         # this is true when the weather is good, false otherwise
         self.good_weather = True
