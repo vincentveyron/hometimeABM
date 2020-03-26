@@ -85,3 +85,12 @@ class HometimeAgent(Agent):
         utility += self.distance_weight * extra_distance_prop
 
         return utility
+
+    def calculate_straight_home_utility(self):
+        utility = 0
+        if self.model.good_weather:
+            utility += 0 * self.weather_weight
+        else:
+            utility += -1 * self.weather_weight
+
+        return utility

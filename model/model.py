@@ -65,7 +65,7 @@ class HometimeModel(Model):
             home_x_pos = np.random.uniform(0, width)
             home_y_pos = np.random.uniform(0, height)
 
-            distance_weight = 1.0
+            distance_weight = np.random.normal(-0.5, 0.25)
 
             agent = HometimeAgent(
                 id,
