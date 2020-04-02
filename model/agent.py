@@ -57,6 +57,8 @@ class HometimeAgent(Agent):
                 max_name = name
         self.last_choice = max_name
 
+        print("The choice was: " + str(self.last_choice))
+
     def stage_two(self):
         # print(str(self.unique_id) + " stage two")
         pass
