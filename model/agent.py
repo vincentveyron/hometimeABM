@@ -22,6 +22,7 @@ class HometimeAgent(Agent):
         self.home_x_pos = home_x_pos
         self.home_y_pos = home_y_pos
         self.distance_weight = distance_weight
+        self.last_choice = None
 
     def step(self):
         """This is called on every time step"""
@@ -48,12 +49,13 @@ class HometimeAgent(Agent):
         )
         max_name = None
         max_utility = -100000
-        for restaurant in restaurant_and_utilities:
+        for restaurant in restaurants_and_utilities:
             name = restaurant[0]
             value = restaurant[1]
             if value > max_utility:
                 max_utility = value
                 max_name = name
+        self.last_choice = max_name
 
     def stage_two(self):
         # print(str(self.unique_id) + " stage two")
