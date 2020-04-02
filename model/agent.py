@@ -60,8 +60,15 @@ class HometimeAgent(Agent):
         print("The choice was: " + str(self.last_choice))
 
     def stage_two(self):
-        # print(str(self.unique_id) + " stage two")
-        pass
+        for restaurant in self.model.restaurants:
+            restaurant_name = restaurant[0]
+            self.previous_visits[restaurant_name] = \
+                self.model.decay * self.previous_visits[restaurant_name]
+
+        if self.last_choice is not None:
+            self.previous_visits[restaurant_name] = \
+                1 + self.previous_visits[restaurant_name]
+
 
     def calculate_utility(self, restaurant_name, restaurant_x_pos,
                           restaurant_y_pos):
