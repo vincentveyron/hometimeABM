@@ -69,7 +69,6 @@ class HometimeAgent(Agent):
             self.previous_visits[restaurant_name] = \
                 1 + self.previous_visits[restaurant_name]
 
-
     def calculate_utility(self, restaurant_name, restaurant_x_pos,
                           restaurant_y_pos):
         utility = 0
