@@ -32,7 +32,7 @@ class HometimeAgent(Agent):
         print(str(self.unique_id) + " stage one")
 
         restaurants_and_utilities = []
-
+        # Calculate utility for restaurants
         for restaurant in self.model.restaurants:
             utility = self.calculate_utility(
                 restaurant[0], restaurant[1], restaurant[2]
@@ -42,11 +42,12 @@ class HometimeAgent(Agent):
             )
 
             print(str(self.unique_id) + "'s utility is " + str(utility))
-
+        # Finish utility function
         straight_home_utility = self.calculate_straight_home_utility()
         restaurants_and_utilities.append(
             (None, straight_home_utility)
         )
+        # Calculate max utility
         max_name = None
         max_utility = -100000
         for restaurant in restaurants_and_utilities:
@@ -57,17 +58,9 @@ class HometimeAgent(Agent):
                 max_name = name
         self.last_choice = max_name
 
-        print("The choice was: " + str(self.last_choice))
-
     def stage_two(self):
-        for restaurant in self.model.restaurants:
-            restaurant_name = restaurant[0]
-            self.previous_visits[restaurant_name] = \
-                self.model.decay * self.previous_visits[restaurant_name]
-
-        if self.last_choice is not None:
-            self.previous_visits[restaurant_name] = \
-                1 + self.previous_visits[restaurant_name]
+        # print(str(self.unique_id) + " stage two")
+        pass
 
     def calculate_utility(self, restaurant_name, restaurant_x_pos,
                           restaurant_y_pos):
@@ -111,6 +104,7 @@ class HometimeAgent(Agent):
         utility += self.distance_weight * extra_distance_prop
 
         return utility
+        # Calculate straight home utility
 
     def calculate_straight_home_utility(self):
         utility = 0

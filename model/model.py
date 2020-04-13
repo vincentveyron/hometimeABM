@@ -28,8 +28,6 @@ class HometimeModel(Model):
         self.school_x_pos = school_x_pos
         self.school_y_pos = school_y_pos
 
-        self.decay = 0.2
-
         # this is true when the weather is good, false otherwise
         self.good_weather = True
 
@@ -62,7 +60,7 @@ class HometimeModel(Model):
                 restaurant_name = restaurant[0]
                 previous_visits[restaurant_name] = 0
 
-            previous_visit_weight = -1.0
+            previous_visit_weight = 1.0
 
             home_x_pos = np.random.uniform(0, width)
             home_y_pos = np.random.uniform(0, height)
