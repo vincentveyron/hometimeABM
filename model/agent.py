@@ -59,8 +59,16 @@ class HometimeAgent(Agent):
         self.last_choice = max_name
 
     def stage_two(self):
-        # print(str(self.unique_id) + " stage two")
-        pass
+        for restaurant in self.model.restaurants:
+            restaurant_name = restaurant[0]
+            if restaurant_name == self.last_choice:
+                self.previous_visits[restaurant_name] = \
+                    self.previous_visits[restaurant_name]*self.model.decay + \
+                    1.0
+
+            else:
+                self.previous_visits[restaurant_name] = \
+                    self.previous_visits[restaurant_name]*self.model.decay
 
     def calculate_utility(self, restaurant_name, restaurant_x_pos,
                           restaurant_y_pos):

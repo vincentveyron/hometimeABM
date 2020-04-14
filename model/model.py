@@ -29,6 +29,8 @@ class HometimeModel(Model):
         self.school_x_pos = school_x_pos
         self.school_y_pos = school_y_pos
 
+        self.decay = 0.2
+
         # this is true when the weather is good, false otherwise
         self.good_weather = True
 
