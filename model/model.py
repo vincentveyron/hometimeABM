@@ -87,7 +87,8 @@ class HometimeModel(Model):
         self.running = True
 
         self.datacollector = DataCollector(
-            agent_reporters={"Last Choice": "last_choice"})
+            agent_reporters={"Last Choice": "last_choice"},
+            model_reporters={"Good weather": "good_weather"})
 
     def step(self):
         self.datacollector.collect(self)
