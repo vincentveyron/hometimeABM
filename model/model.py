@@ -5,6 +5,7 @@ from model import config
 from random import random
 from database.database_helper import get_all_restaurants
 import numpy as np
+from mesa.datacollection import DataCollector
 
 
 class HometimeModel(Model):
@@ -85,7 +86,11 @@ class HometimeModel(Model):
 
         self.running = True
 
+        self.datacollector = DataCollector(
+            agent_reporters={"Last Choice": "last_choice"})
+
     def step(self):
+        self.datacollector.collect(self)
         # change the weather
         if random() < config.percentage_bad_weather:
             self.good_weather = False
