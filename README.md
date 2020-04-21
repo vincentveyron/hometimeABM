@@ -19,7 +19,7 @@ Write `venv\Scripts\activate.bat`
 
 wait for it to load
 
-Write `pip install jupyter mesa`
+Write `pip install jupyter mesa matplotlib`
 
 wait for it to load
 
